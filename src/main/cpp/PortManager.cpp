@@ -20,7 +20,7 @@ PortManager& PortManager::Instance()
 
 int PortManager::GetCanID(std::string IDName)
 {
-    int ID = CANPorts[IDName];
+    int ID = m_CANPorts[IDName];
 
     if (ID < 0)
         FRC_ReportError(frc::warn::Warning, "Requested CAN ID was {}. CAN IDs can not be less than 0.", ID);
