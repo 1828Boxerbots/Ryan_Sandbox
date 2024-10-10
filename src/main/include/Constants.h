@@ -28,14 +28,20 @@ namespace DriveConstants
     constexpr double rotationalSlewRate = 2.0;  // percent per second (1 = 100%)
 }
 
-namespace Chassis
+namespace ChassisConstants
 {
     constexpr units::meter_t trackWidth = 0.0_m;
     constexpr units::meter_t wheelBase = 0.0_m;
+
+    // Angular offsets of the modules relative to the chassis in radians
+    constexpr double frontLeftChassisAngularOffset = -std::numbers::pi / 2;
+    constexpr double frontRightChassisAngularOffset = 0;
+    constexpr double rearLeftChassisAngularOffset = std::numbers::pi;
+    constexpr double rearRightChassisAngularOffset = std::numbers::pi / 2;
 }
 
-namespace OperatorConstants {
-
-inline constexpr int kDriverControllerPort = 0;
-
-}  // namespace OperatorConstants
+namespace IOConstants
+{
+    constexpr double driveDeadband = 0.05;
+    constexpr int driverControllerPort = 0;
+}

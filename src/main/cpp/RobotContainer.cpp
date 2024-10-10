@@ -7,6 +7,11 @@
 // Autonomous Commands
 #include "commands/EmptyAuto.hpp"
 
+#include <frc2/command/button/JoystickButton.h>
+#include <frc2/command/RunCommand.h>
+
+#include <utility>
+
 // #include "commands/Autos.h"
 // #include "commands/ExampleCommand.h"
 
@@ -15,10 +20,26 @@ RobotContainer::RobotContainer() {
 
   // Configure the button bindings
   ConfigureBindings();
+
+  m_drive.SetDefaultCommand(frc2::RunCommand(
+      [this] {
+        m_drive.Drive(
+            -units::meters_per_second_t{frc::ApplyDeadband(
+                m_driverController.GetLeftY(), IOConstants::driveDeadband)},
+            -units::meters_per_second_t{frc::ApplyDeadband(
+                m_driverController.GetLeftX(), IOConstants::driveDeadband)},
+            -units::radians_per_second_t{frc::ApplyDeadband(
+                m_driverController.GetRightX(), IOConstants::driveDeadband)},
+            true, true);
+      },
+      {&m_drive}));
 }
 
 void RobotContainer::ConfigureBindings() {
   // Configure your trigger bindings here
+  frc2::JoystickButton(&m_driverController,
+                       frc::XboxController::Button::kRightBumper)
+      .WhileTrue(new frc2::RunCommand([this] { m_drive.SetX(); }, {&m_drive}));
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
