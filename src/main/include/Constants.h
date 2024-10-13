@@ -8,6 +8,8 @@
 #include <units/velocity.h>
 #include <units/angular_velocity.h>
 
+#include <numbers>
+
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other

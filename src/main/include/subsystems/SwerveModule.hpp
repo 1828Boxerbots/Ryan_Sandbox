@@ -10,6 +10,8 @@
 #include <rev/SparkPIDController.h>
 #include <rev/SparkRelativeEncoder.h>
 
+#include <numbers>
+
 /**
  * Class that holds the individual state of a single swerve module.
 */
@@ -76,7 +78,9 @@ class SwerveModule
         double m_ChassisAngularOffset = 0.0;
         frc::SwerveModuleState m_DesiredState { units::meters_per_second_t { 0.0 }, frc::Rotation2d() };
 
-    #pragma region Constants
+        // --------------------------------------------------------------------
+        //                         Constants
+        // --------------------------------------------------------------------
         // Drive Gear teeth counts
         const int m_FirstStageSpurTeeth = 22;
         const int m_DriveBevelTeeth = 45;
@@ -118,7 +122,8 @@ class SwerveModule
         const rev::CANSparkMax::IdleMode m_DrivingMotorIdleMode = rev::CANSparkMax::IdleMode::kBrake;
         const rev::CANSparkMax::IdleMode m_TurningMotorIdleMode = rev::CANSparkMax::IdleMode::kBrake;
 
+        // Set amperage limits to prevent brownouts
         const units::ampere_t m_DrivingMotorCurrentLimit = 50_A;
         const units::ampere_t m_TurningMotorCurrentLimit = 20_A;
-    #pragma endregion
+        // --------------------------------------------------------------------
 };

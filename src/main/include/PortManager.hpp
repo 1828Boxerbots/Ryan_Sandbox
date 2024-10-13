@@ -33,7 +33,7 @@ class PortManager
          * @param IDName This is the name of the can id to retrieve.
          * @return This returns the integer of the requested ID.
         */
-        int GetCanID(std::string IDName);
+        unsigned int GetCanID(std::string IDName);
 
     private:
         /**
