@@ -83,24 +83,26 @@ class SwerveModule
         // --------------------------------------------------------------------
         // Drive Gear teeth counts
         const int m_FirstStageSpurTeeth = 22;
-        const int m_DriveBevelTeeth = 45;
+        const int m_WheelBevelTeeth = 45;
         const int m_DrivingMotorPinionTeeth = 14;
+        const int m_DriveBevelPinionTeeth = 15;
 
         // Calculations required for driving motor conversion factors and feed forward
         const units::meter_t m_WheelDiameter = 0.0762_m;
         const units::meter_t m_WheelCircumference = m_WheelDiameter * std::numbers::pi;
 
-        const double m_DrivingMotorReduction = (m_DriveBevelTeeth * m_FirstStageSpurTeeth) / (m_DrivingMotorPinionTeeth * 15);
+        const double m_DrivingMotorReduction = (m_WheelBevelTeeth * m_FirstStageSpurTeeth) / (m_DrivingMotorPinionTeeth * m_DriveBevelPinionTeeth);
         const double m_DrivingMotorFreeSpeedRps = 5676.0 / 60;  // NEO free speed is 5676 RPM
         const double m_DriveWheelFreeSpeedRps = (m_DrivingMotorFreeSpeedRps * m_WheelCircumference.value()) / m_DrivingMotorReduction;
 
         // Drive Conversion Constants
+        const double m_SecondsInAMinute = 60.0;
         const double m_DrivingEncoderPositionFactor = (m_WheelDiameter.value() * std::numbers::pi) / m_DrivingMotorReduction;  // meters
-        const double m_DrivingEncoderVelocityFactor = ((m_WheelDiameter.value() * std::numbers::pi) / m_DrivingMotorReduction) / 60.0;  // meters per second
+        const double m_DrivingEncoderVelocityFactor = m_DrivingEncoderPositionFactor/ m_SecondsInAMinute;  // meters per second
 
         // Turning Conversion Constants
         const double m_TurningEncoderPositionFactor = (2 * std::numbers::pi);  // radians
-        const double m_TurningEncoderVelocityFactor = (2 * std::numbers::pi) / 60.0;  // radians per second
+        const double m_TurningEncoderVelocityFactor = m_TurningEncoderPositionFactor/ m_SecondsInAMinute;  // radians per second
 
         bool m_TurningEncoderInverted = true;
 
